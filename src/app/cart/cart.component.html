@@ -1,0 +1,106 @@
+<div class="container mt-5 pt-5">
+  <div *ngIf="counter == 0; else productsContainer">Cart Is Empty</div>
+  <ng-template #productsContainer>
+    <div class="container px-3 my-5 clearfix">
+      <!-- Shopping cart table -->
+      <div class="card">
+        <div class="card-header">
+          <h2>Shopping Cart</h2>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered m-0">
+              <thead>
+                <tr>
+                  <!-- Set columns width -->
+                  <th class="text-center py-3 px-4" style="min-width: 400px">
+                    Product Name &amp; Details
+                  </th>
+                  <th class="text-right py-3 px-4" style="width: 100px">
+                    Price
+                  </th>
+                  <th class="text-center py-3 px-4" style="width: 120px">
+                    Quantity
+                  </th>
+                </tr>
+              </thead>
+              <tbody *ngFor="let product of cartProducts">
+                <tr>
+                  <td class="p-4">
+                    <div class="media align-items-center">
+                      <img
+                        src="{{ product.image }}"
+                        class="d-block ui-w-40 ui-bordered mr-4"
+                        alt=""
+                      />
+                      <div class="media-body">
+                        <a href="#" class="d-block text-dark">{{
+                          product.title
+                        }}</a>
+                        <small>
+                          &nbsp; <span class="text-muted">Price: </span>
+                          {{ product.price | price: "EGP" }}
+                          &nbsp;
+                        </small>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="text-right font-weight-semibold align-middle p-4">
+                    {{ product.price | price: "EGP" }}
+                  </td>
+                  <td class="text-center align-middle px-0">
+                    <div
+                      class="shop-tooltip close float-none d-flex justify-content-evenly"
+                      title=""
+                      data-original-title="Remove"
+                    >
+                      <button
+                        class="btn btn-primary"
+                        (click)="increaseQuantity(product.id)"
+                      >
+                        <a>+</a>
+                      </button>
+                      {{ product.quantity }}
+                      <button
+                        class="btn btn-primary"
+                        (click)="decreaseQuantity(product.id)"
+                      >
+                        <a>-</a>
+                      </button>
+                    </div>
+                  </td>
+                  <td class="text-center align-middle px-0">
+                    <button
+                      class="shop-tooltip close float-none btn btn-danger"
+                      title=""
+                      data-original-title="Remove"
+                      (click)="remove(product.id)"
+                    >
+                      Remove
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- / Shopping cart table -->
+          <div
+            class="d-flex flex-wrap justify-content-between align-items-center pb-4"
+          >
+            <div>
+              <div class="text-right mt-4 ms-auto">
+                <label class="text-muted font-weight-normal m-0 d"
+                  >Total price</label
+                >
+                <div class="text-large">
+                  <strong>{{ total | number: "1.1-2" }}EGP</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="float-right"></div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

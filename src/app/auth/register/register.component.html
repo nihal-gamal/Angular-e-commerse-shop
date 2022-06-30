@@ -1,0 +1,280 @@
+<div class="container">
+  <div class="w-50 mx-auto my-5 mt-5 pt-5">
+    <form
+      [formGroup]="registerData"
+      (ngSubmit)="submitData()"
+      class="form-control"
+    >
+      <label for="name">name</label>
+      <input
+        id="name"
+        class="form-control mb-2"
+        type="text"
+        name="name"
+        formControlName="name"
+      />
+      <div
+        *ngIf="
+          showError ||
+          (!controlValidators['name'].valid &&
+            controlValidators['name'].touched)
+        "
+      >
+        <p
+          class="text-danger"
+          *ngIf="controlValidators['name'].errors?.['required']"
+        >
+          This field Is Required
+        </p>
+      </div>
+      <label for="email">email</label>
+      <input
+        id="email"
+        class="form-control mb-2"
+        type="email"
+        name="email"
+        formControlName="email"
+      />
+      <div
+        *ngIf="
+          showError ||
+          (!controlValidators['email'].valid &&
+            controlValidators['email'].touched)
+        "
+      >
+        <p
+          class="text-danger"
+          *ngIf="controlValidators['email'].errors?.['required']"
+        >
+          This field Is Required
+        </p>
+        <p
+          class="text-danger"
+          *ngIf="controlValidators['email'].errors?.['email']"
+        >
+          Email Formate Is Not Valid
+        </p>
+      </div>
+      <label for="userName">user name</label>
+      <input
+        id="userName"
+        class="form-control mb-2"
+        type="text"
+        name="userName"
+        formControlName="userName"
+      />
+      <div
+        *ngIf="
+          showError ||
+          (!controlValidators['userName'].valid &&
+            controlValidators['userName'].touched)
+        "
+      >
+        <p
+          class="text-danger"
+          *ngIf="controlValidators['userName'].errors?.['required']"
+        >
+          This field Is Required
+        </p>
+        <p
+          class="text-danger"
+          *ngIf="controlValidators['userName'].errors?.['pattern']"
+        >
+          No White Space Available
+        </p>
+      </div>
+      <label for="password">password</label>
+      <input
+        id="password"
+        class="form-control mb-2"
+        type="text"
+        name="password"
+        formControlName="password"
+      />
+      <div
+        *ngIf="
+          showError ||
+          (!controlValidators['password'].valid &&
+            controlValidators['password'].touched)
+        "
+      >
+        <p
+          class="text-danger"
+          *ngIf="controlValidators['password'].errors?.['required']"
+        >
+          This field Is Required
+        </p>
+        <p
+          class="text-danger"
+          *ngIf="controlValidators['password'].errors?.['minlength']"
+        >
+          At Least 7 Charachters
+        </p>
+        <p
+          class="text-danger"
+          *ngIf="controlValidators['password'].errors?.['pattern']"
+        >
+          Match The Pattern
+        </p>
+      </div>
+      <label for="confirmPassword">confirm password</label>
+      <input
+        id="confirmPassword"
+        class="form-control mb-2"
+        type="text"
+        name="confirmPassword"
+        formControlName="confirmPassword"
+      />
+      <div
+        *ngIf="
+          showError ||
+          (!controlValidators['confirmPassword'].valid &&
+            controlValidators['confirmPassword'].touched)
+        "
+      >
+        <p
+          class="text-danger"
+          *ngIf="controlValidators['confirmPassword'].errors?.['required']"
+        >
+          This field Is Required
+        </p>
+        <p
+          class="text-danger"
+          *ngIf="controlValidators['confirmPassword'].errors?.['minlength']"
+        >
+          At Least 7 Charachters
+        </p>
+        <p
+          class="text-danger"
+          *ngIf="controlValidators['confirmPassword'].errors?.['confirmPasswordValidator']"
+        >
+          Match The Pattern
+        </p>
+      </div>
+      <button
+        class="btn btn-primary d-block mb-3"
+        type="button"
+        (click)="addAddress()"
+      >
+        + Add Address
+      </button>
+      <div
+        formArrayName="addresses"
+        *ngFor="let child of addressArray['controls']; let i = index"
+      >
+        <div formGroupName="{{ i }}" class="form-control">
+          <div>
+            <!-- <button class="btn btn-primary" type="button" (click)="addAddress()">
+            + Add Address
+          </button> -->
+            <button
+              class="btn btn-danger d-block ms-auto"
+              (click)="removeAddress(i)"
+            >
+              Remove
+            </button>
+          </div>
+
+          <label for="address">Address</label>
+          {{ i + 1 }}
+          <input
+            id="address"
+            class="form-control mb-2"
+            type="text"
+            name="address"
+            formControlName="address"
+          />
+          <div
+            *ngIf="
+              showError ||
+              (!child.get('address')?.valid && child.get('address')?.touched)
+            "
+          >
+            <p
+              class="text-danger"
+              *ngIf="child.get('address')?.errors?.['pattern']"
+            >
+              Match The Pattern
+            </p>
+          </div>
+          <label for="street">Street</label>
+          <input
+            id="street"
+            class="form-control mb-2"
+            type="text"
+            name="street"
+            formControlName="street"
+          />
+          <div
+            *ngIf="
+              showError ||
+              (!child.get('street')?.valid && child.get('street')?.touched)
+            "
+          >
+            <p
+              class="text-danger"
+              *ngIf="child.get('street')?.errors?.['pattern']"
+            >
+              Match The Pattern
+            </p>
+          </div>
+          <label for="city">City</label>
+          <input
+            id="city"
+            class="form-control mb-2"
+            type="text"
+            name="city"
+            formControlName="city"
+          />
+          <div
+            *ngIf="
+              showError ||
+              (!child.get('city')?.valid && child.get('city')?.touched)
+            "
+          >
+            <p
+              class="text-danger"
+              *ngIf="child.get('city')?.errors?.['required']"
+            >
+              This field Is Required
+            </p>
+            <p
+              class="text-danger"
+              *ngIf="child.get('city')?.errors?.['pattern']"
+            >
+              Match The Pattern
+            </p>
+          </div>
+          <label for="country">Country</label>
+          <input
+            id="country"
+            class="form-control mb-2"
+            type="text"
+            name="country"
+            formControlName="country"
+          />
+          <div
+            *ngIf="
+              showError ||
+              (!child.get('country')?.valid && child.get('country')?.touched)
+            "
+          >
+            <p
+              class="text-danger"
+              *ngIf="child.get('country')?.errors?.['required']"
+            >
+              This field Is Required
+            </p>
+            <p
+              class="text-danger"
+              *ngIf="child.get('country')?.errors?.['pattern']"
+            >
+              Match The Pattern
+            </p>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-success mt-5">Register</button>
+    </form>
+  </div>
+</div>

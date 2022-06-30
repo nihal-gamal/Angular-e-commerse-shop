@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="w-50 mx-auto my-5 mt-5 pt-5">
+    <form #f="ngForm" (ngSubmit)="sendValue(f.value)" class="form-control">
+      <label for="email" class="mb-2">Email Address</label>
+      <input
+        id="email"
+        type="email"
+        class="form-control"
+        name="email"
+        #email="ngModel"
+        pattern="^[a-zA-Z0-9.!#$%&'+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)$"
+        required
+        ngModel
+      />
+      <div
+        class="text-danger"
+        *ngIf="showError || (!email.valid && email.touched)"
+      >
+        <p *ngIf="email.errors?.['required']">Email Is Required</p>
+        <p *ngIf="email.errors?.['pattern']">Email Is Required</p>
+      </div>
+      <label for="password" class="mb-2">Password</label>
+      <input
+        id="password"
+        type="password"
+        class="form-control"
+        name="password"
+        #password="ngModel"
+        required
+        ngModel
+        minlength="3"
+        maxlength="10"
+      />
+      <div
+        class="text-danger"
+        *ngIf="showError || (!password.valid && password.touched)"
+      >
+        <p *ngIf="password.errors?.['required']">Password Is Required</p>
+        <p *ngIf="password.errors?.['minlength']">min is 3</p>
+      </div>
+      <button
+        type="submit"
+        [disabled]="!f.valid"
+        class="btn btn-primary w-100 mt-5"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+</div>

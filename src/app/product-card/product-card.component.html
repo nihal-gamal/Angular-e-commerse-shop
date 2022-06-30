@@ -1,0 +1,13 @@
+<div class="item border mb-2">
+  <div routerLink="/product-detail/{{ inputData.id }}">
+    <img [src]="inputData.image" class="w-100" alt="" />
+    <div class="card-body">
+      <h5 class="card-title">{{ inputData.title }}</h5>
+      <h5 class="card-title">{{ inputData.price | price: "EGP" }}</h5>
+    </div>
+  </div>
+  <a class="btn btn-primary" (click)="sendDeta(inputData)">Add To Card</a>
+  <button class="btn border-primary" (click)="addToWishListCart()">
+    Add TO Wish List
+  </button>
+</div>

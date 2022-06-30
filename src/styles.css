@@ -1,0 +1,15 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: black;
+  background-color: white;
+}
+img {
+  height: 450px;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
